@@ -47,17 +47,7 @@ class ChainedSelect(Select):
     @property
     def media(self):
         """Media defined as a dynamic property instead of an inner class."""
-        vendor = '' if django.VERSION < (1, 9, 0) else 'vendor/jquery/'
-        extra = '' if settings.DEBUG else '.min'
-        js = [
-            '%sjquery%s.js' % (vendor, extra),
-            'jquery.init.js',
-        ]
-        if USE_DJANGO_JQUERY:
-            js = [static('admin/js/%s' % url) for url in js]
-        elif JQUERY_URL:
-            js = [JQUERY_URL]
-        js = js + [static('smart-selects/admin/js/chainedfk.js')]
+        js = [static('smart-selects/admin/js/chainedfk.js')]
 
         return forms.Media(js=js)
 
